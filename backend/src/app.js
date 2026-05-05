@@ -10,7 +10,7 @@ import userRouter from "./routes/user.route.js";
 
 //  routes declaration
 app.use("/api/v1/users",userRouter);
-app.use("/api/v1/post",usePost);
+app.use("/api/v1/posts",usePost);
 
 
 export default app;
