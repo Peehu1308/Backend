@@ -31,6 +31,37 @@ const registerUser=async(req,res)=>{
         res.status(500).json({message:"internal error",error:error.message});
     }
 }
+const loginUser=async(req,res)=>{
+    try{
+        // checking if user already exists
+        const {email,password}=req.body;
+        const user=await User.findOne({email:email.toLowerCase()});
+
+
+        if(!user)return res.status(404).json({message:"user not found"});
+        
+        //compare password
+        const isMatch=await user.comparePassword(password);
+        if(!isMatch)return res.status(400).json({
+            message:"invalid credentials"
+        })
+
+        res.status(200).json({
+            message:"user logged in",
+            user:{
+                id:user._id,
+                email:user.email,
+                username:user.username,
+            }
+        });
+
+    }
+    catch(err){
+        console.log(`internal server error ${err}`);
+    }
+}
+
+
 
 export {
     registerUser
