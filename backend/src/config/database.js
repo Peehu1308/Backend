@@ -13,7 +13,7 @@ const connectDb=async()=>{
 
     }
     catch(err){
-        console.log(err);
+        console.log(`there is an error database not connected ${err}`);
     }
 }
 
