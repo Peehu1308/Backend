@@ -1,4 +1,4 @@
-import { Post } from "../models/post.model";
+import { Post } from "../models/post.model.js";
 
 //  create a post
 const createPost=async(req,res)=>{
@@ -16,3 +16,7 @@ const createPost=async(req,res)=>{
         console.log(err);
     }
 }
+
+export {
+    createPost
+};
