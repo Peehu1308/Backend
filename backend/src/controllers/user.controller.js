@@ -1,4 +1,4 @@
-import {User} from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 
 const registerUser=async(req,res)=>{
     try{
@@ -28,7 +28,7 @@ const registerUser=async(req,res)=>{
 
     }
     catch(err){
-        res.status(500).json({message:"internal error",error:error.message});
+        res.status(500).json({message:"internal error",error:err.message});
     }
 }
 const loginUser=async(req,res)=>{
@@ -61,8 +61,19 @@ const loginUser=async(req,res)=>{
     }
 }
 
+const logoutUser=async(req,res)=>{
+    try{
+        const {email}=req.body;
+        const user=await User.findOne({email});
+        if(!user)return res.status(404).json({message:"user not found"});
 
-
-export {
-    registerUser
+        res.status(200).json(
+            {message:"logout successfull"}
+        );
+    }
+    catch(err){
+        console.log(`unable to logout due to${err}`);
+    }
 }
+
+export { loginUser, registerUser ,logoutUser};
